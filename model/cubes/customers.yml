@@ -2,7 +2,16 @@ cubes:
   - name: customers
     sql_table: "\"PUBLIC\".\"CUSTOMERS\""
 
-    joins: []
+    joins:
+      - name: marketing_touchpoints
+        sql: "{CUBE.id} = {marketing_touchpoints.customer_id}"
+        relationship: one_to_many
+      - name: orders
+        sql: "{orders.customer_id} = {CUBE.id}"
+        relationship: one_to_many
+      - name: sales
+        sql: "{sales.customer_id} = {CUBE.id}"
+        relationship: one_to_many
 
     dimensions:
       - name: id
@@ -22,9 +31,26 @@ cubes:
         sql: "{CUBE}.\"PHONE_NUMBER\""
         type: string
 
+      - name: number_of_orders
+        sub_query: true
+        type: number
+        sql: "{orders.row_count}"
+
     measures:
-      - name: count
+      - name: row_count
         type: count
+        title: Number of Customers
+      - name: sum_orders
+        type: sum
+        sql: "{CUBE.number_of_orders}"
+      - name: orders_per_customer
+        title: "Orders per customer"
+        type: number
+        sql: "{orders.row_count} / {CUBE.row_count}"
+      - name: revenue_per_customer
+        title: Revenue per customer
+        type: number
+        sql: "{sales.Revenue} / {CUBE.row_count}"
 
     pre_aggregations:
       # Pre-aggregation definitions go here.

@@ -30,7 +30,7 @@ cubes:
         type: number
 
       - name: timestamp
-        sql: "{CUBE}.\"TIMESTAMP\""
+        sql: "TO_TIMESTAMP({CUBE}.\"TIMESTAMP\",6)"
         type: number
 
       - name: item_number
@@ -50,8 +50,17 @@ cubes:
         type: string
 
     measures:
-      - name: count
+      - name: row_count
         type: count
+      - name: qty_sold
+        type: sum
+        sql: quantity
+      - name: Revenue
+        type: sum
+        sql: "{CUBE.item_price}"
+      - name: avg_unit_price
+        type: number
+        sql: "{CUBE.Revenue} / {CUBE.qty_sold}"
 
     pre_aggregations:
       # Pre-aggregation definitions go here.

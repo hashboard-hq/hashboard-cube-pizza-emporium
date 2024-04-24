@@ -1,6 +1,7 @@
 cubes:
   - name: marketing_attribution
     sql_table: "\"PUBLIC\".\"MARKETING_ATTRIBUTION\""
+    public: false
 
     joins:
       - name: campaigns
@@ -10,6 +11,10 @@ cubes:
       - name: orders
         sql: "{CUBE}.\"ORDER_ID\" = {orders}.\"ID\""
         relationship: many_to_one
+      
+      - name: marketing_touchpoints
+        sql: "{CUBE.touchpoint_id} = {marketing_touchpoints.touchpoint_id}"
+        relationship: many_to_one
 
     dimensions:
       - name: attribution_id
@@ -18,12 +23,12 @@ cubes:
         primary_key: true
 
       - name: order_timestamp
-        sql: "{CUBE}.\"ORDER_TIMESTAMP\""
-        type: number
+        sql: "TO_TIMESTAMP({CUBE}.\"ORDER_TIMESTAMP\",6)"
+        type: time
 
       - name: attribution_timestamp
-        sql: "{CUBE}.\"ATTRIBUTION_TIMESTAMP\""
-        type: number
+        sql: "TO_TIMESTAMP({CUBE}.\"ATTRIBUTION_TIMESTAMP\",6)"
+        type: time
 
       - name: order_id
         sql: "{CUBE}.\"ORDER_ID\""
@@ -44,10 +49,11 @@ cubes:
       - name: touchpoint_id
         sql: "{CUBE}.\"TOUCHPOINT_ID\""
         type: string
-
+    
     measures:
-      - name: count
+      - name: row_count
         type: count
+        public: false
 
     pre_aggregations:
       # Pre-aggregation definitions go here.

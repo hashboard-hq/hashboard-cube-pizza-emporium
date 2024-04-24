@@ -2,7 +2,13 @@ cubes:
   - name: campaigns
     sql_table: "\"PUBLIC\".\"CAMPAIGNS\""
 
-    joins: []
+    joins:
+      - name: marketing_attribution
+        sql: "{CUBE.campaign_id} = {marketing_attribution.campaign_id}"
+        relationship: one_to_many
+      - name: marketing_touchpoints
+        sql: "{CUBE.campaign_id} = {marketing_touchpoints.campaign_id}"
+        relationship: one_to_many
 
     dimensions:
       - name: campaign_id
@@ -15,12 +21,12 @@ cubes:
         type: number
 
       - name: end_date
-        sql: "{CUBE}.\"END_DATE\""
-        type: number
+        sql: "TO_TIMESTAMP({CUBE}.\"END_DATE\",6)"
+        type: time
 
       - name: start_date
-        sql: "{CUBE}.\"START_DATE\""
-        type: number
+        sql: "TO_TIMESTAMP({CUBE}.\"START_DATE\",6)"
+        type: time
 
       - name: campaign_type
         sql: "{CUBE}.\"CAMPAIGN_TYPE\""
@@ -43,8 +49,18 @@ cubes:
         type: string
 
     measures:
-      - name: count
+      - name: row_count
         type: count
+        title: Campaign Count
+      - name: total_cost
+        type: sum
+        sql: total_budget
+      - name: total_touchpoints
+        type: sum
+        sql: touchpoint_count
+      - name: avg_cost_per_touchpoint
+        type: number
+        sql: "{CUBE.total_cost} / {CUBE.total_touchpoints}"
 
     pre_aggregations:
       # Pre-aggregation definitions go here.

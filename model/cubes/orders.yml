@@ -7,6 +7,13 @@ cubes:
         sql: "{CUBE}.\"CUSTOMER_ID\" = {customers}.\"ID\""
         relationship: many_to_one
 
+      - name: marketing_attribution
+        sql: "{CUBE.id} = {marketing_attribution.order_id}"
+        relationship: one_to_many
+      - name: sales
+        sql: "{sales.order_id} = {CUBE.id}"
+        relationship: one_to_many
+
     dimensions:
       - name: id
         sql: "{CUBE}.\"ID\""
@@ -26,8 +33,8 @@ cubes:
         type: number
 
       - name: timestamp
-        sql: "{CUBE}.\"TIMESTAMP\""
-        type: number
+        sql: "TO_TIMESTAMP({CUBE}.\"TIMESTAMP\",6)"
+        type: time
 
       - name: cook_id
         sql: "{CUBE}.\"COOK_ID\""
@@ -73,9 +80,44 @@ cubes:
         sql: "{CUBE}.\"DELIVERY\""
         type: string
 
+    
     measures:
-      - name: count
+      - name: row_count
         type: count
+        title: "Number of Orders"
+      - name: total_delivery_time
+        sql: delivery_time
+        type: sum
+        public: false
+      - name: avg_delivery_time
+        sql: "{CUBE.total_delivery_time} / {CUBE.row_count}"
+        type: number
+      - name: total_preparation_time
+        sql: preparation_time
+        type: sum
+        public: false
+      - name: avg_preparation_time
+        sql: "{CUBE.total_preparation_time} / {CUBE.row_count}"
+        type: number
+      - name: sum_order_value
+        sql: total_order_value
+        type: sum
+      - name: sum_feedback_rating
+        sql: feedback_rating
+        type: sum
+        public: false
+      - name: avg_feedback_rating
+        sql: "{CUBE.sum_feedback_rating} / {CUBE.row_count}"
+        type: number
+      - name: revenue_per_order
+        title: "Revenue per order"
+        type: number
+        sql: "{CUBE.sum_order_value} / {CUBE.row_count}"
+      - name: delivery_orders
+        title: "Pizza Delivery Orders"
+        type: count
+        filters:
+          - sql: "{CUBE.delivery} = 'Yes'"
 
     pre_aggregations:
       # Pre-aggregation definitions go here.

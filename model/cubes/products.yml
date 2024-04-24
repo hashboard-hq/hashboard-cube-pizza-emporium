@@ -2,7 +2,10 @@ cubes:
   - name: products
     sql_table: "\"PUBLIC\".\"PRODUCTS\""
 
-    joins: []
+    joins:
+      - name: sales
+        sql: "{sales.product_id} = {CUBE.id}"
+        relationship: one_to_many
 
     dimensions:
       - name: id
@@ -25,10 +28,11 @@ cubes:
       - name: pizza_type
         sql: "{CUBE}.\"PIZZA_TYPE\""
         type: string
-
+    
     measures:
-      - name: count
+      - name: row_count
         type: count
+        title: Number of Products
 
     pre_aggregations:
       # Pre-aggregation definitions go here.
