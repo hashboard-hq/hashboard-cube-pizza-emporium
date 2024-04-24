@@ -31,18 +31,18 @@ cubes:
         sql: "{CUBE}.\"PHONE_NUMBER\""
         type: string
 
-      - name: number_of_orders
-        sub_query: true
-        type: number
-        sql: "{orders.row_count}"
+      # - name: number_of_orders
+      #   sub_query: true
+      #   type: number
+      #   sql: "{orders.row_count}"
 
     measures:
       - name: row_count
         type: count
         title: Number of Customers
-      - name: sum_orders
-        type: sum
-        sql: "{CUBE.number_of_orders}"
+      # - name: sum_orders
+      #   type: sum
+      #   sql: "{CUBE.number_of_orders}"
       - name: orders_per_customer
         title: "Orders per customer"
         type: number
