@@ -1,0 +1,36 @@
+cubes:
+  - name: products
+    sql_table: "\"PUBLIC\".\"PRODUCTS\""
+
+    joins: []
+
+    dimensions:
+      - name: id
+        sql: "{CUBE}.\"ID\""
+        type: string
+        primary_key: true
+
+      - name: pizza_size
+        sql: "{CUBE}.\"PIZZA_SIZE\""
+        type: string
+
+      - name: pizza_shape
+        sql: "{CUBE}.\"PIZZA_SHAPE\""
+        type: string
+
+      - name: price
+        sql: "{CUBE}.\"PRICE\""
+        type: string
+
+      - name: pizza_type
+        sql: "{CUBE}.\"PIZZA_TYPE\""
+        type: string
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

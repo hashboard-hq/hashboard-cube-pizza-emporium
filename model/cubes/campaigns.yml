@@ -1,0 +1,52 @@
+cubes:
+  - name: campaigns
+    sql_table: "\"PUBLIC\".\"CAMPAIGNS\""
+
+    joins: []
+
+    dimensions:
+      - name: campaign_id
+        sql: "{CUBE}.\"CAMPAIGN_ID\""
+        type: string
+        primary_key: true
+
+      - name: touchpoint_count
+        sql: "{CUBE}.\"TOUCHPOINT_COUNT\""
+        type: number
+
+      - name: end_date
+        sql: "{CUBE}.\"END_DATE\""
+        type: number
+
+      - name: start_date
+        sql: "{CUBE}.\"START_DATE\""
+        type: number
+
+      - name: campaign_type
+        sql: "{CUBE}.\"CAMPAIGN_TYPE\""
+        type: string
+
+      - name: total_budget
+        sql: "{CUBE}.\"TOTAL_BUDGET\""
+        type: string
+
+      - name: campaign_name
+        sql: "{CUBE}.\"CAMPAIGN_NAME\""
+        type: string
+
+      - name: cost_per_touchpoint
+        sql: "{CUBE}.\"COST_PER_TOUCHPOINT\""
+        type: string
+
+      - name: campaign
+        sql: "{CUBE}.\"CAMPAIGN\""
+        type: string
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

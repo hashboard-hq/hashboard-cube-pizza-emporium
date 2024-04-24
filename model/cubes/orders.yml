@@ -1,0 +1,83 @@
+cubes:
+  - name: orders
+    sql_table: "\"PUBLIC\".\"ORDERS\""
+
+    joins:
+      - name: customers
+        sql: "{CUBE}.\"CUSTOMER_ID\" = {customers}.\"ID\""
+        relationship: many_to_one
+
+    dimensions:
+      - name: id
+        sql: "{CUBE}.\"ID\""
+        type: number
+        primary_key: true
+
+      - name: preparation_time
+        sql: "{CUBE}.\"PREPARATION_TIME\""
+        type: number
+
+      - name: delivery_time
+        sql: "{CUBE}.\"DELIVERY_TIME\""
+        type: number
+
+      - name: feedback_rating
+        sql: "{CUBE}.\"FEEDBACK_RATING\""
+        type: number
+
+      - name: timestamp
+        sql: "{CUBE}.\"TIMESTAMP\""
+        type: number
+
+      - name: cook_id
+        sql: "{CUBE}.\"COOK_ID\""
+        type: string
+
+      - name: total_order_value
+        sql: "{CUBE}.\"TOTAL_ORDER_VALUE\""
+        type: string
+
+      - name: discount_code
+        sql: "{CUBE}.\"DISCOUNT_CODE\""
+        type: string
+
+      - name: customer_id
+        sql: "{CUBE}.\"CUSTOMER_ID\""
+        type: string
+
+      - name: special_request
+        sql: "{CUBE}.\"SPECIAL_REQUEST\""
+        type: string
+
+      - name: payment_method
+        sql: "{CUBE}.\"PAYMENT_METHOD\""
+        type: string
+
+      - name: type
+        sql: "{CUBE}.\"TYPE\""
+        type: string
+
+      - name: loyalty_status
+        sql: "{CUBE}.\"LOYALTY_STATUS\""
+        type: string
+
+      - name: location_id
+        sql: "{CUBE}.\"LOCATION_ID\""
+        type: string
+
+      - name: referral_source
+        sql: "{CUBE}.\"REFERRAL_SOURCE\""
+        type: string
+
+      - name: delivery
+        sql: "{CUBE}.\"DELIVERY\""
+        type: string
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

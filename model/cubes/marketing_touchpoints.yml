@@ -1,0 +1,59 @@
+cubes:
+  - name: marketing_touchpoints
+    sql_table: "\"PUBLIC\".\"MARKETING_TOUCHPOINTS\""
+
+    joins:
+      - name: campaigns
+        sql: "{CUBE}.\"CAMPAIGN_ID\" = {campaigns}.\"CAMPAIGN_ID\""
+        relationship: many_to_one
+
+      - name: customers
+        sql: "{CUBE}.\"CUSTOMER_ID\" = {customers}.\"ID\""
+        relationship: many_to_one
+
+    dimensions:
+      - name: touchpoint_id
+        sql: "{CUBE}.\"TOUCHPOINT_ID\""
+        type: string
+        primary_key: true
+
+      - name: interaction_timestamp
+        sql: "{CUBE}.\"INTERACTION_TIMESTAMP\""
+        type: number
+
+      - name: campaign
+        sql: "{CUBE}.\"CAMPAIGN\""
+        type: string
+
+      - name: source
+        sql: "{CUBE}.\"SOURCE\""
+        type: string
+
+      - name: medium
+        sql: "{CUBE}.\"MEDIUM\""
+        type: string
+
+      - name: touchpoint_value
+        sql: "{CUBE}.\"TOUCHPOINT_VALUE\""
+        type: string
+
+      - name: cost_per_touchpoint
+        sql: "{CUBE}.\"COST_PER_TOUCHPOINT\""
+        type: string
+
+      - name: campaign_id
+        sql: "{CUBE}.\"CAMPAIGN_ID\""
+        type: string
+
+      - name: customer_id
+        sql: "{CUBE}.\"CUSTOMER_ID\""
+        type: string
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+

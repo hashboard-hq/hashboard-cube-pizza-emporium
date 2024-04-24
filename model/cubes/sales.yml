@@ -1,0 +1,59 @@
+cubes:
+  - name: sales
+    sql_table: "\"PUBLIC\".\"SALES\""
+
+    joins:
+      - name: orders
+        sql: "{CUBE}.\"ORDER_ID\" = {orders}.\"ID\""
+        relationship: many_to_one
+
+      - name: customers
+        sql: "{CUBE}.\"CUSTOMER_ID\" = {customers}.\"ID\""
+        relationship: many_to_one
+
+      - name: products
+        sql: "{CUBE}.\"PRODUCT_ID\" = {products}.\"ID\""
+        relationship: many_to_one
+
+    dimensions:
+      - name: item_id
+        sql: "{CUBE}.\"ITEM_ID\""
+        type: number
+        primary_key: true
+
+      - name: order_id
+        sql: "{CUBE}.\"ORDER_ID\""
+        type: number
+
+      - name: item_price
+        sql: "{CUBE}.\"ITEM_PRICE\""
+        type: number
+
+      - name: timestamp
+        sql: "{CUBE}.\"TIMESTAMP\""
+        type: number
+
+      - name: item_number
+        sql: "{CUBE}.\"ITEM_NUMBER\""
+        type: number
+
+      - name: customer_id
+        sql: "{CUBE}.\"CUSTOMER_ID\""
+        type: string
+
+      - name: quantity
+        sql: "{CUBE}.\"QUANTITY\""
+        type: string
+
+      - name: product_id
+        sql: "{CUBE}.\"PRODUCT_ID\""
+        type: string
+
+    measures:
+      - name: count
+        type: count
+
+    pre_aggregations:
+      # Pre-aggregation definitions go here.
+      # Learn more in the documentation: https://cube.dev/docs/caching/pre-aggregations/getting-started
+
