@@ -19,6 +19,7 @@ cubes:
         sql: "{CUBE}.\"ID\""
         type: number
         primary_key: true
+        public: true
 
       - name: preparation_time
         sql: "{CUBE}.\"PREPARATION_TIME\""

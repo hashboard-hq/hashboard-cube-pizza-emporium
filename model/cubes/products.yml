@@ -12,6 +12,7 @@ cubes:
         sql: "{CUBE}.\"ID\""
         type: string
         primary_key: true
+        public: true
 
       - name: pizza_size
         sql: "{CUBE}.\"PIZZA_SIZE\""

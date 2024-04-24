@@ -18,6 +18,7 @@ cubes:
         sql: "{CUBE}.\"ID\""
         type: string
         primary_key: true
+        public: true
 
       - name: name
         sql: "{CUBE}.\"NAME\""
