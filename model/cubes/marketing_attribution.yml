@@ -23,11 +23,11 @@ cubes:
         primary_key: true
 
       - name: order_timestamp
-        sql: "DATE_ADD(month, 18, TO_TIMESTAMP({CUBE}.\"ORDER_TIMESTAMP\",6))"
+        sql: "ADD_MONTHS(TO_TIMESTAMP({CUBE}.\"ORDER_TIMESTAMP\",6),18)"
         type: time
 
       - name: attribution_timestamp
-        sql: "DATE_ADD(month, 18, TO_TIMESTAMP({CUBE}.\"ATTRIBUTION_TIMESTAMP\",6))"
+        sql: "ADD_MONTHS(TO_TIMESTAMP({CUBE}.\"ATTRIBUTION_TIMESTAMP\",6),18)"
         type: time
 
       - name: order_id

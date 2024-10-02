@@ -21,11 +21,11 @@ cubes:
         type: number
 
       - name: end_date
-        sql: "DATE_ADD(month, 18, TO_TIMESTAMP({CUBE}.\"END_DATE\",6))"
+        sql: "ADD_MONTHS(TO_TIMESTAMP({CUBE}.\"END_DATE\",6),18)"
         type: time
 
       - name: start_date
-        sql: "DATE_ADD(month, 18, TO_TIMESTAMP({CUBE}.\"START_DATE\",6))"
+        sql: "ADD_MONTHS(TO_TIMESTAMP({CUBE}.\"START_DATE\",6),18)"
         type: time
 
       - name: campaign_type

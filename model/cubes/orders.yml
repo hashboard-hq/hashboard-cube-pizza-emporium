@@ -34,7 +34,7 @@ cubes:
         type: number
 
       - name: timestamp
-        sql: "DATE_ADD(month, 18, TO_TIMESTAMP({CUBE}.\"TIMESTAMP\",6))"
+        sql: "ADD_MONTHS(TO_TIMESTAMP({CUBE}.\"TIMESTAMP\",6),18)"
         type: time
 
       - name: cook_id
