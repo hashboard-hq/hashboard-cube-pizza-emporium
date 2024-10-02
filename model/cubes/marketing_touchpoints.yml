@@ -24,7 +24,7 @@ cubes:
         primary_key: true
 
       - name: interaction_timestamp
-        sql: "TO_TIMESTAMP({CUBE}.\"INTERACTION_TIMESTAMP\",6)"
+        sql: "DATE_ADD(month, 18, TO_TIMESTAMP({CUBE}.\"INTERACTION_TIMESTAMP\",6))"
         type: time
 
       - name: campaign
